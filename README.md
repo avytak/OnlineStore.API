@@ -7,7 +7,7 @@ the waiting time during the initial run or after periods of inactivity
 
 or use `Local machine` to run the application on port `3000`
 
-http://localhost:3000/api
+<http://localhost:3000/api>
 
 ## Installation
 
