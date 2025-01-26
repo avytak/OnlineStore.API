@@ -1,6 +1,15 @@
-# API endpoints for online store
+# API documentation for online store
 
-[https://online-store-api-eosin.vercel.app/](https://online-store-api-eosin.vercel.app/)
+[https://online-store-api-fazp.onrender.com/api](https://online-store-api-fazp.onrender.com/api)
+
+Since this server operates on a free plan, please be patient with
+the waiting time during the initial run or after periods of inactivity
+
+or use `Local machine` to run the application on port `3000`
+
+http://localhost:3000/api
+
+## Installation
 
 ## Requirements
 
@@ -17,10 +26,6 @@
 3. Run `npm install`
 
 4. Run `make app`
-
-### API endpoints on
-
-localhost:3000
 
 ### Implemented Commands
 
