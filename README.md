@@ -31,3 +31,7 @@ or use `Local machine` to run the application on port `3000`
 
 - `make app` - up application
 - `make app-down` - down application
+
+## Start application without Makefile
+
+docker-compose -f docker/docker-compose.yml up --build

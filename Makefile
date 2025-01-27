@@ -1,5 +1,5 @@
 DC = docker-compose
-APP_FILE = docker-compose.yml
+APP_FILE = docker/docker-compose.yml
 
 
 .PHONY: app
