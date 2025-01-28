@@ -1,0 +1,10 @@
+services:
+  main-app:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: store-app
+    ports:
+      - '3000:3000'
+    volumes:
+      - ../:/app
