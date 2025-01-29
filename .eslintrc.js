@@ -23,7 +23,7 @@ module.exports = {
     'prettier/prettier': [
       'warn',
       {
-        endOfLine: 'auto',
+        endOfLine: 'lf',
         parser: 'typescript',
         singleQuote: true,
       },
@@ -31,9 +31,12 @@ module.exports = {
         usePrettierrc: false,
       },
     ],
+    'require-await': 'off',
+    '@typescript-eslint/require-await': 'off',
     'import/prefer-default-export': 'off',
     'import/no-unresolved': 'off',
     'linebreak-style': ['error', 'unix'],
+    '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
     '@typescript-eslint/no-explicit-any': 'error',
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
@@ -52,7 +55,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['*.ts'],
+      files: ['**/*.ts'],
       parserOptions: {
         ecmaVersion: 2020,
         sourceType: 'module',
@@ -62,7 +65,10 @@ module.exports = {
       },
       rules: {
         '@typescript-eslint/explicit-module-boundary-types': 'off',
-        '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+        '@typescript-eslint/no-unused-vars': [
+          'warn',
+          { argsIgnorePattern: '^_' },
+        ],
       },
     },
   ],
