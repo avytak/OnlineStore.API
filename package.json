@@ -34,6 +34,7 @@
     "module-alias": "^2.2.3",
     "nodemon": "^3.1.9",
     "pg": "^8.13.1",
+    "@nestjs/swagger": "^8.1.1",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1"
   },
