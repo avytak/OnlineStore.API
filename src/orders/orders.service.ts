@@ -11,12 +11,8 @@ export class OrdersService {
   constructor(@Inject(DRIZZLE) private db: DrizzleDB) {}
 
   async create(createOrderDto: CreateOrderDto) {
-    await this.db
-      .insert(orders)
-      .values(createOrderDto)
-      .catch((err) => {
-        console.error('Error inserting order:', err);
-      });
+    await this.db.insert(orders).values(createOrderDto);
+
     return 'This action adds a new order';
   }
 
