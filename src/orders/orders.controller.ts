@@ -8,17 +8,16 @@ import {
   Post,
 } from '@nestjs/common';
 
-import { SelectOrder } from '@app/drizzle/schema/orders.schema';
-import { UpdateOrderDto } from '@app/orders/dto/update-order.dto';
+import { InsertOrder, SelectOrder } from '@app/drizzle/schema/orders.schema';
 import { OrdersService } from '@app/orders/orders.service';
 
 @Controller('orders')
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 
-  @Post()
-  create(@Body() createOrderDto: SelectOrder) {
-    return this.ordersService.create(createOrderDto);
+  @Get(':id')
+  findOne(@Param('id') id: string): Promise<SelectOrder> {
+    return this.ordersService.findOne(+id);
   }
 
   @Get()
@@ -26,18 +25,21 @@ export class OrdersController {
     return this.ordersService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.ordersService.findOne(+id);
+  @Post()
+  create(@Body() createOrderDto: InsertOrder) {
+    return this.ordersService.create(createOrderDto);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateOrderDto: SelectOrder
+  ): Promise<void> {
     return this.ordersService.update(+id, updateOrderDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: string): Promise<void> {
     return this.ordersService.remove(+id);
   }
 }

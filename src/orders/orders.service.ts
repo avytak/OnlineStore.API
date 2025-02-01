@@ -1,9 +1,13 @@
 import { Inject, Injectable } from '@nestjs/common';
 
 import { DRIZZLE } from '@app/drizzle/drizzle.module';
-import { InsertOrder, orders } from '@app/drizzle/schema/orders.schema';
+import {
+  InsertOrder,
+  SelectOrder,
+  orders,
+} from '@app/drizzle/schema/orders.schema';
 import { DrizzleDB } from '@app/drizzle/types/drizzle';
-import { UpdateOrderDto } from '@app/orders/dto/update-order.dto';
+import { eq } from 'drizzle-orm';
 
 @Injectable()
 export class OrdersService {
@@ -15,20 +19,29 @@ export class OrdersService {
     return 'This action adds a new order';
   }
 
+  async findOne(id: SelectOrder['id']): Promise<SelectOrder> {
+    try {
+      const ordersData: SelectOrder[] = await this.db
+        .select()
+        .from(orders)
+        .where(eq(orders.id, id))
+        .limit(1);
+      return ordersData.length > 0 ? ordersData[0] : null;
+    } catch (error) {
+      const typedError = error as Error;
+      console.error(typedError.message);
+    }
+  }
+
   async findAll() {
     return await this.db.select().from(orders);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} order`;
+  async update(id: SelectOrder['id'], data: Partial<Omit<SelectOrder, 'id'>>) {
+    await this.db.update(orders).set(data).where(eq(orders.id, id));
   }
 
-  update(id: number, updateOrderDto: UpdateOrderDto) {
-    console.log(updateOrderDto);
-    return `This action updates a #${id} order`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} order`;
+  async remove(id: SelectOrder['id']): Promise<void> {
+    await this.db.delete(orders).where(eq(orders.id, id));
   }
 }
