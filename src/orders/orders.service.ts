@@ -1,16 +1,15 @@
 import { Inject, Injectable } from '@nestjs/common';
 
 import { DRIZZLE } from '@app/drizzle/drizzle.module';
-import { orders } from '@app/drizzle/schema/orders.schema';
+import { InsertUser, orders } from '@app/drizzle/schema/orders.schema';
 import { DrizzleDB } from '@app/drizzle/types/drizzle';
-import { CreateOrderDto } from '@app/orders/dto/create-order.dto';
 import { UpdateOrderDto } from '@app/orders/dto/update-order.dto';
 
 @Injectable()
 export class OrdersService {
   constructor(@Inject(DRIZZLE) private db: DrizzleDB) {}
 
-  async create(createOrderDto: CreateOrderDto) {
+  async create(createOrderDto: InsertUser) {
     await this.db.insert(orders).values(createOrderDto);
 
     return 'This action adds a new order';

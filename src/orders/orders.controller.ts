@@ -8,7 +8,7 @@ import {
   Post,
 } from '@nestjs/common';
 
-import { CreateOrderDto } from '@app/orders/dto/create-order.dto';
+import { SelectOrder } from '@app/drizzle/schema/orders.schema';
 import { UpdateOrderDto } from '@app/orders/dto/update-order.dto';
 import { OrdersService } from '@app/orders/orders.service';
 
@@ -17,7 +17,7 @@ export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 
   @Post()
-  create(@Body() createOrderDto: CreateOrderDto) {
+  create(@Body() createOrderDto: SelectOrder) {
     return this.ordersService.create(createOrderDto);
   }
 

@@ -19,3 +19,6 @@ export const orders = pgTable('orders', {
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow(),
 });
+
+export type SelectOrder = typeof orders.$inferSelect;
+export type InsertUser = typeof orders.$inferInsert;
