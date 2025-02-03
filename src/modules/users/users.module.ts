@@ -5,7 +5,7 @@ import {
   RequestMethod,
 } from '@nestjs/common';
 
-import { DrizzleModule } from '@app/drizzle/drizzle.module';
+import { DrizzleModule } from '@app/database/drizzle.module';
 import { HashPassword } from '@app/modules/users/middlewares';
 
 import { UsersController } from './users.controller';

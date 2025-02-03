@@ -1,0 +1,1 @@
+ALTER TABLE "users" ALTER COLUMN "token" SET DATA TYPE varchar(200);
