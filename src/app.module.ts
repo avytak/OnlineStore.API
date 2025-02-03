@@ -1,18 +1,18 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { ProductsModule } from './products/products.module';
+
 import { AppController } from '@app/app.controller';
 import { AppService } from '@app/app.service';
-
-import { DrizzleModule } from './drizzle/drizzle.module';
-import { OrdersModule } from './orders/orders.module';
+import { DrizzleModule } from '@app/drizzle/drizzle.module';
+import { OrdersModule } from '@app/modules/orders/orders.module';
+import { UsersModule } from '@app/modules/users/users.module';
 
 @Module({
   imports: [
-    ProductsModule,
+    ConfigModule.forRoot({ isGlobal: true }),
     DrizzleModule,
     OrdersModule,
-    ConfigModule.forRoot({ isGlobal: true }),
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
