@@ -5,7 +5,7 @@
   "printWidth": 80,
   "proseWrap": "always",
   "tabWidth": 2,
-  "eslint.autoFixOnSave": true,
+  "importOrderParserPlugins": ["typescript", "decorators-legacy"],
   "importOrder": [
     "^@nestjs/(.*)$",
     "<THIRD_PARTY_MODULES>",
@@ -13,12 +13,16 @@
     "^@/components/(.*)$",
     "^@/assets/(.*)$",
     "^@/app/(.*)$",
+    "^@/utils/(.*)$",
+    "^@/services/(.*)$",
+    "^@/models/(.*)$",
+    "^@/controllers/(.*)$",
+    "^@/middlewares/(.*)$",
+    "^@/config/(.*)$",
     "^[./]"
   ],
   "importOrderSeparation": true,
   "importOrderSortSpecifiers": true,
-  "plugins": [
-    "@trivago/prettier-plugin-sort-imports",
-    "transform-decorators-legacy","transform-decorators"
-  ]
+  "endOfLine": "lf",
+  "plugins": ["@trivago/prettier-plugin-sort-imports"]
 }
