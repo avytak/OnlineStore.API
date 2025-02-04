@@ -20,7 +20,8 @@
     "type-check": "tsc --project tsconfig.json --pretty --noEmit && echo ",
     "prepare": "husky",
     "db:generate": "npx drizzle-kit generate",
-    "db:migrate": "npx drizzle-kit migrate"
+    "db:migrate": "npx drizzle-kit migrate",
+    "db:studio": "npx drizzle-kit studio"
   },
   "dependencies": {
     "@neondatabase/serverless": "^0.10.4",
