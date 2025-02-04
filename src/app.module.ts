@@ -6,25 +6,18 @@ import {
 } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 
-import { AppController } from '@app/app.controller';
-import { AppService } from '@app/app.service';
-import { DrizzleModule } from '@app/drizzle/drizzle.module';
+import { DrizzleModule } from './database/drizzle.module';
+import { OrdersModule } from './modules/orders/orders.module';
+import { ProductModule } from './modules/product/product.module';
 import { AuthMiddleware } from '@app/middleware/auth/auth.middleware';
-import { OrdersModule } from '@app/modules/orders/orders.module';
-import { UsersModule } from '@app/modules/users/users.module';
-
-import { CategoriesModule } from './modules/categories/categories.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
     DrizzleModule,
     OrdersModule,
-    UsersModule,
-    CategoriesModule,
+    ConfigModule.forRoot({ isGlobal: true }),
+    ProductModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
