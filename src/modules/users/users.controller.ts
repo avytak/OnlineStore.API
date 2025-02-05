@@ -2,50 +2,44 @@ import {
   Body,
   Controller,
   Get,
-  Param,
   Patch,
   Post,
-  Query,
+  Req,
+  UseGuards,
 } from '@nestjs/common';
 
 import { InsertUser, SelectUser } from '@app/drizzle/schema/users.schema';
-import { AuthBodyType } from '@app/modules/users/types/types';
+import { IsAuthGuard } from '@app/guards/is-auth.guard';
 import { UsersService } from '@app/modules/users/users.service';
+import { ExpressRequestInterface } from '@app/types/expressRequest.interface';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Post()
-  create(@Body() body: InsertUser): Promise<InsertUser> {
-    return this.usersService.create(body);
-  }
-
   @Get()
-  findAll(
-    @Query('page') page: string,
-    @Query('limit') limit: string
-  ): Promise<SelectUser[]> {
-    return this.usersService.findAll(+page, +limit);
+  currentUser(@Req() req: ExpressRequestInterface) {
+    return req.user;
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string): Promise<SelectUser> {
-    return this.usersService.findOne(+id);
+  @Post()
+  signup(@Body() body: InsertUser): Promise<InsertUser> {
+    return this.usersService.signup(body);
   }
 
-  @Patch(':id')
-  updata(@Param('id') id: string, @Body() body: SelectUser) {
-    return this.usersService.updata(+id, body);
+  @Patch()
+  @UseGuards(IsAuthGuard)
+  updata(@Req() req: ExpressRequestInterface, @Body() body: SelectUser) {
+    return this.usersService.updata(req.user.id, body);
   }
 
   @Post('login')
-  login(@Body() body: AuthBodyType): Promise<string> {
+  login(@Body() body: SelectUser): Promise<SelectUser> {
     return this.usersService.login(body);
   }
 
   @Post('logout')
-  logout(@Body('email') email: string): Promise<void> {
-    return this.usersService.logout(email);
+  logout(@Req() req: ExpressRequestInterface): Promise<void> {
+    return this.usersService.logout(req.user?.id);
   }
 }

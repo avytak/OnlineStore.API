@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 
 import { DRIZZLE } from '@app/drizzle/drizzle.module';
 import {
@@ -7,40 +7,55 @@ import {
   users,
 } from '@app/drizzle/schema/users.schema';
 import { DrizzleDB } from '@app/drizzle/types/drizzle';
-import { authUser } from '@app/modules/users/functions/auth';
-import { AuthBodyType } from '@app/modules/users/types/types';
+import { createToken } from '@app/modules/users/helpers/createToken';
 import 'dotenv/config';
-import { eq } from 'drizzle-orm';
+import { eq, or } from 'drizzle-orm';
 
 @Injectable()
 export class UsersService {
   constructor(@Inject(DRIZZLE) private db: DrizzleDB) {}
 
-  async login(body: AuthBodyType): Promise<string> {
+  async login(body: SelectUser): Promise<SelectUser> {
     const user: SelectUser[] = await this.db
       .select()
       .from(users)
       .where(eq(users.email, body.email));
-    const token = await authUser(body, user[0]);
+    if (!user[0]) {
+      throw new HttpException(
+        'Invalid email or password',
+        HttpStatus.BAD_REQUEST
+      );
+    }
+    const token = await createToken(body, user[0]);
     await this.updata(user[0].id, { token: token } as SelectUser);
-    return token;
-  }
-
-  async logout(email: string): Promise<void> {
-    const user: SelectUser[] = await this.db
-      .select()
-      .from(users)
-      .where(eq(users.email, email));
-    await this.updata(user[0].id, { token: null } as SelectUser);
-  }
-
-  async create(body: InsertUser): Promise<InsertUser> {
-    const user = await this.db.insert(users).values(body).returning();
+    delete user[0].password;
     return user[0];
   }
 
-  async findAll(page: number = 1, limit: number = 10): Promise<SelectUser[]> {
-    return await this.db.select().from(users).limit(limit).offset(page);
+  async logout(id: number): Promise<void> {
+    if (!id) return;
+    const user: SelectUser[] = await this.db
+      .select()
+      .from(users)
+      .where(eq(users.id, id));
+    await this.updata(user[0].id, { token: null } as SelectUser);
+  }
+
+  async signup(body: InsertUser): Promise<InsertUser | null> {
+    const existingUser: SelectUser[] = await this.db
+      .select()
+      .from(users)
+      .where(
+        or(eq(users.email, body.email), eq(users.firstName, body.firstName))
+      );
+    if (existingUser[0]) {
+      throw new HttpException(
+        { message: 'Такий користувач вже існує' },
+        HttpStatus.UNPROCESSABLE_ENTITY
+      );
+    }
+    const [user] = await this.db.insert(users).values(body).returning();
+    return user || null;
   }
 
   async findOne(id: number): Promise<SelectUser> {
