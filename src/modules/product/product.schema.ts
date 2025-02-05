@@ -20,3 +20,7 @@ export const product = pgTable('product', {
     .defaultNow()
     .$onUpdate(() => new Date()), // Дата оновлення запису
 });
+
+export type SelectProduct = typeof product.$inferSelect;
+
+export type InsertProduct = typeof product.$inferInsert;
