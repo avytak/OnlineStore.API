@@ -5,11 +5,13 @@ import {
   RequestMethod,
 } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { AuthMiddleware } from '@app/middleware/auth/auth.middleware';
 import { OrdersModule } from '@app/modules/orders/orders.module';
 import { UsersModule } from '@app/modules/users/users.module';
 import { ProductModule } from './modules/product/product.module';
 import { AuthMiddleware } from '@app/middleware/auth/auth.middleware';
 import { DrizzleModule } from '@app/database/drizzle.module';
+
 
 @Module({
   imports: [

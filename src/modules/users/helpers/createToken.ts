@@ -10,13 +10,13 @@ const { JWT_SECRET } = process.env;
 
 export async function createToken(
   body: AuthBodyType,
-  user: SelectUser
+  user: SelectUser,
 ): Promise<string> {
   const isPassword = await compare(body.password, user.password);
   if (!isPassword) {
     throw new HttpException(
       'Invalid email or password',
-      HttpStatus.BAD_REQUEST
+      HttpStatus.BAD_REQUEST,
     );
   }
   const payload: MyJwtPayloadType = {

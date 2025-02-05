@@ -1,21 +1,16 @@
-import { eq, or } from 'drizzle-orm';
-import 'dotenv/config';
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
-import { AuthBodyType } from '@app/modules/users/types/types';
-import { DrizzleDB } from '@app/database/drizzle';
-import {
-  InsertUser,
-  SelectUser,
-  users,
-} from '@app/modules/orders/users.schema';
-import { DRIZZLE } from '@app/database/drizzle.module';
+import 'dotenv/config';
+import { eq, or } from 'drizzle-orm';
 import { createToken } from '@app/modules/users/helpers/createToken';
+import { DRIZZLE } from '@app/database/drizzle.module';
+import { InsertUser, SelectUser, users } from '@app/modules/users/users.schema';
+import { DrizzleDB } from '@app/database/drizzle';
 
 @Injectable()
 export class UsersService {
   constructor(@Inject(DRIZZLE) private db: DrizzleDB) {}
 
-  async login(body: AuthBodyType): Promise<string> {
+  async login(body: SelectUser): Promise<string> {
     const user: SelectUser[] = await this.db
       .select()
       .from(users)
