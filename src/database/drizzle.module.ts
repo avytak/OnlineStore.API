@@ -5,7 +5,7 @@ import { DrizzleDB } from '@app/database/drizzle';
 import { drizzle } from 'drizzle-orm/node-postgres';
 import { Pool } from 'pg';
 
-import * as schema from '../drizzle/schema/schema';
+import * as schema from './schema';
 
 export const DRIZZLE = Symbol('drizzle-connection');
 
