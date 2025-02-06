@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
-import { DrizzleDB } from '@app/drizzle/types/drizzle';
+import { DrizzleDB } from '@app/database/drizzle';
 import { drizzle } from 'drizzle-orm/node-postgres';
 import { Pool } from 'pg';
 
-import * as schema from './schema/schema';
+import * as schema from './schema';
 
 export const DRIZZLE = Symbol('drizzle-connection');
 

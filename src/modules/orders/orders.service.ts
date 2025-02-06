@@ -1,12 +1,12 @@
 import { Inject, Injectable } from '@nestjs/common';
 
-import { DRIZZLE } from '@app/drizzle/drizzle.module';
+import { DrizzleDB } from '@app/database/drizzle';
+import { DRIZZLE } from '@app/database/drizzle.module';
 import {
   InsertOrder,
   SelectOrder,
   orders,
-} from '@app/drizzle/schema/orders.schema';
-import { DrizzleDB } from '@app/drizzle/types/drizzle';
+} from '@app/modules/orders/orders.schema';
 import { eq } from 'drizzle-orm';
 
 @Injectable()

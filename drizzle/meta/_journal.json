@@ -15,6 +15,13 @@
       "when": 1738177049581,
       "tag": "0001_flimsy_madame_masque",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1738687821596,
+      "tag": "0002_optimal_purifiers",
+      "breakpoints": true
     }
   ]
 }
