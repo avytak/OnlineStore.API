@@ -8,8 +8,8 @@ import {
   UseGuards,
 } from '@nestjs/common';
 
-import { InsertUser, SelectUser } from '@app/drizzle/schema/users.schema';
 import { IsAuthGuard } from '@app/guards/is-auth.guard';
+import { InsertUser, SelectUser } from '@app/modules/users/users.schema';
 import { UsersService } from '@app/modules/users/users.service';
 import { ExpressRequestInterface } from '@app/types/expressRequest.interface';
 

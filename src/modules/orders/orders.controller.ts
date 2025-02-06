@@ -8,7 +8,7 @@ import {
   Post,
 } from '@nestjs/common';
 
-import { InsertOrder, SelectOrder } from '@app/drizzle/schema/orders.schema';
+import { InsertOrder, SelectOrder } from '@app/modules/orders/orders.schema';
 import { OrdersService } from '@app/modules/orders/orders.service';
 
 @Controller('orders')

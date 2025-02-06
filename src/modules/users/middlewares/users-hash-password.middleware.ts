@@ -1,6 +1,6 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 
-import { SelectUser } from '@app/drizzle/schema/users.schema';
+import { SelectUser } from '@app/modules/users/users.schema';
 import { hash } from 'bcrypt';
 import { NextFunction, Request, Response } from 'express';
 

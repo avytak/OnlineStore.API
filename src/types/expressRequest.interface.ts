@@ -1,4 +1,4 @@
-import { SelectUser } from '@app/drizzle/schema/users.schema';
+import { SelectUser } from '@app/modules/users/users.schema';
 import { Request } from 'express';
 
 export interface ExpressRequestInterface extends Request {

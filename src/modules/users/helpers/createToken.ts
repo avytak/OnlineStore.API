@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus } from '@nestjs/common';
 
-import { SelectUser } from '@app/drizzle/schema/users.schema';
 import { AuthBodyType, MyJwtPayloadType } from '@app/modules/users/types/types';
+import { SelectUser } from '@app/modules/users/users.schema';
 import { compare } from 'bcrypt';
 import 'dotenv/config';
 import { sign } from 'jsonwebtoken';

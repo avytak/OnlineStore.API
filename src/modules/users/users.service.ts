@@ -1,13 +1,9 @@
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 
 import { DRIZZLE } from '@app/drizzle/drizzle.module';
-import {
-  InsertUser,
-  SelectUser,
-  users,
-} from '@app/drizzle/schema/users.schema';
 import { DrizzleDB } from '@app/drizzle/types/drizzle';
 import { createToken } from '@app/modules/users/helpers/createToken';
+import { InsertUser, SelectUser, users } from '@app/modules/users/users.schema';
 import 'dotenv/config';
 import { eq, or } from 'drizzle-orm';
 
