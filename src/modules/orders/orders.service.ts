@@ -1,12 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 
-<<<<<<< HEAD
 import { DrizzleDB } from '@app/database/drizzle';
 import { DRIZZLE } from '@app/database/drizzle.module';
-=======
-import { DRIZZLE } from '@app/drizzle/drizzle.module';
-import { DrizzleDB } from '@app/drizzle/types/drizzle';
->>>>>>> cfc9092 (romove schemas and remove categoriesController)
 import {
   InsertOrder,
   SelectOrder,
