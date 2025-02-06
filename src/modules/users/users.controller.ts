@@ -34,12 +34,7 @@ export class UsersController {
   }
 
   @Post('login')
-  login(@Body() body: SelectUser): Promise<SelectUser> {
+  login(@Body() body: SelectUser): Promise<string> {
     return this.usersService.login(body);
-  }
-
-  @Post('logout')
-  logout(@Req() req: ExpressRequestInterface): Promise<void> {
-    return this.usersService.logout(req.user?.id);
   }
 }

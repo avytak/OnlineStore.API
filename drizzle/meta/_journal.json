@@ -5,29 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1738172807545,
-      "tag": "0000_magical_spirit",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1738177049581,
-      "tag": "0001_flimsy_madame_masque",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1738605185444,
-      "tag": "0002_big_rafael_vega",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1738615259858,
-      "tag": "0003_harsh_warstar",
+      "when": 1738870448517,
+      "tag": "0000_mysterious_ego",
       "breakpoints": true
     }
   ]
