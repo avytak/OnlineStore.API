@@ -9,6 +9,4 @@ export interface MyJwtPayloadType extends JwtPayload {
   id: number;
   email: string;
   role: string;
-  firstName: string;
-  lastName: string;
 }

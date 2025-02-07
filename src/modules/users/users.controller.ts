@@ -30,7 +30,7 @@ export class UsersController {
   @Patch()
   @UseGuards(IsAuthGuard)
   updata(@Req() req: ExpressRequestInterface, @Body() body: SelectUser) {
-    return this.usersService.updata(req.user.id, body);
+    return this.usersService.update(req.user.id, body);
   }
 
   @Post('login')

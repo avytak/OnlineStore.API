@@ -20,7 +20,7 @@ export class BaseRepository<T extends PgTable> {
       .from(this.table)
       .then((res) => res.map((row) => row as InferSelectModel<T>));
   }
-  async findById(id: string): Promise<InferSelectModel<T> | undefined> {
+  async findById(id: number): Promise<InferSelectModel<T> | undefined> {
     return this.db
       .select()
       .from(this.table)
