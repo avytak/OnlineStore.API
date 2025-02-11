@@ -1,7 +1,7 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 
 import { SelectUser } from '@app/modules/users/users.schema';
-import { hash } from 'bcrypt';
+import { hash } from 'bcryptjs';
 import { NextFunction, Request, Response } from 'express';
 
 interface RequestWithBody extends Request {

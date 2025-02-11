@@ -1,5 +1,5 @@
 services:
-  main-app:
+  nest-app:
     build:
       context: ..
       dockerfile: docker/Dockerfile
@@ -8,3 +8,25 @@ services:
       - '3000:3000'
     volumes:
       - ../:/usr/src/app
+    env_file:
+      - .env
+    depends_on:
+      - postgres-db
+
+  postgres-db:
+    image: postgres:17.2-alpine
+    container_name: store-db
+    restart: always
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - .env
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U admin -d store_db']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+volumes:
+  postgres_data:

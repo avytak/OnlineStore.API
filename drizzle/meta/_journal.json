@@ -5,22 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1738172807545,
-      "tag": "0000_magical_spirit",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1738177049581,
-      "tag": "0001_flimsy_madame_masque",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1738687821596,
-      "tag": "0002_optimal_purifiers",
+      "when": 1739260680034,
+      "tag": "0000_warm_doctor_strange",
       "breakpoints": true
     }
   ]

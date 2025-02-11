@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { HttpException, HttpStatus } from '@nestjs/common';
 
 import { AuthBodyType, MyJwtPayloadType } from '@app/modules/users/types/types';
 import { SelectUser } from '@app/modules/users/users.schema';
-import { compare } from 'bcrypt';
+import { compare } from 'bcryptjs';
 import 'dotenv/config';
 import { sign } from 'jsonwebtoken';
 
@@ -12,7 +13,11 @@ export async function createToken(
   body: AuthBodyType,
   user: SelectUser
 ): Promise<string> {
-  const isPassword = await compare(body.password, user.password);
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+  const isPassword: boolean | Error = await compare(
+    body.password,
+    user.password
+  );
   if (!isPassword) {
     throw new HttpException(
       'Invalid email or password',
