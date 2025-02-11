@@ -5,7 +5,7 @@ services:
       dockerfile: docker/Dockerfile
     container_name: store-app
     ports:
-      - '3000:3000'
+      - '3300:3000'
     volumes:
       - ../:/usr/src/app
     env_file:

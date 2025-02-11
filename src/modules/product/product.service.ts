@@ -3,9 +3,9 @@ import { Inject, Injectable } from '@nestjs/common';
 import { DrizzleDB } from '@app/database/drizzle';
 import { DRIZZLE } from '@app/database/drizzle.module';
 
+import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ProductRepository } from './product.repository';
-import { InsertProduct, product } from './product.schema';
 
 @Injectable()
 export class ProductService {
@@ -14,8 +14,8 @@ export class ProductService {
     private readonly productRepository: ProductRepository
   ) {}
 
-  async create(createProductDto: InsertProduct) {
-    await this.db.insert(product).values(createProductDto);
+  async create(createProductDto: CreateProductDto) {
+    await this.productRepository.create(createProductDto);
 
     return 'This action adds a new order';
   }
