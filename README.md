@@ -1,6 +1,6 @@
 # API documentation for online store
 
-[https://online-store-api-fazp.onrender.com/api](https://online-store-api-fazp.onrender.com/api)
+[https://online-store-api-fazp.onrender.com/docs](https://online-store-api-fazp.onrender.com/docs)
 
 Since this server operates on a free plan, please be patient with
 the waiting time during the initial run or after periods of inactivity
