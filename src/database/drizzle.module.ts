@@ -15,13 +15,7 @@ export const DRIZZLE = Symbol('drizzle-connection');
       provide: DRIZZLE,
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => {
-        const user = configService.get<string>('POSTGRES_USER');
-        const password = configService.get<string>('POSTGRES_PASSWORD');
-        const host = configService.get<string>('POSTGRES_HOST');
-        const port = configService.get<number>('POSTGRES_PORT');
-        const database = configService.get<string>('POSTGRES_DB');
-        const connectionString = `postgresql://${user}:${password}@${host}:${port}/${database}`;
-
+        const connectionString = configService.get<string>('DATABASE_URL');
         const pool = new Pool({
           connectionString,
         });

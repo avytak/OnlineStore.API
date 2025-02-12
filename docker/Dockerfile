@@ -3,13 +3,11 @@ FROM node:20-alpine AS builder
 
 WORKDIR /usr/src/app
 
-RUN apk add --no-cache python3 make g++
-
 COPY ../package*.json ./
 RUN npm ci
 COPY ../ ./
-COPY .env .env
 RUN npm run build
+
 # Production stage
 FROM node:20-alpine AS runner
 
@@ -20,7 +18,7 @@ RUN npm prune --production
 COPY --from=builder /usr/src/app/node_modules ./node_modules
 COPY --from=builder /usr/src/app/dist ./dist
 COPY --from=builder /usr/src/app/package.json ./package.json
-COPY .env .env
+
 
 EXPOSE 3000
 

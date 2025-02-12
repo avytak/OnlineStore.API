@@ -6,12 +6,11 @@ services:
     container_name: store-app
     ports:
       - '3300:3000'
-    volumes:
-      - ../:/usr/src/app
-    env_file:
-      - .env
     depends_on:
-      - postgres-db
+      postgres-db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://admin:root@postgres-db:5432/store_db
 
   postgres-db:
     image: postgres:17.2-alpine
@@ -21,8 +20,10 @@ services:
       - '5432:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    env_file:
-      - .env
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: store_db
     healthcheck:
       test: ['CMD-SHELL', 'pg_isready -U admin -d store_db']
       interval: 5s
