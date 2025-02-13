@@ -4,20 +4,12 @@ FROM node:20-alpine AS builder
 WORKDIR /usr/src/app
 
 RUN apk add --no-cache python3 make g++
-<<<<<<< HEAD
-RUN npm install -g @nestjs/cli
-=======
->>>>>>> development
 
 COPY ../package*.json ./
-RUN npm ci
+RUN npm i
 COPY ../ ./
 COPY .env .env
 RUN npm run build
-<<<<<<< HEAD
-
-=======
->>>>>>> development
 # Production stage
 FROM node:20-alpine AS runner
 
@@ -30,11 +22,7 @@ COPY --from=builder /usr/src/app/dist ./dist
 COPY --from=builder /usr/src/app/package.json ./package.json
 COPY .env .env
 
-<<<<<<< HEAD
-EXPOSE 3300
-=======
 EXPOSE 3000
->>>>>>> development
 
-CMD ["npm", "run", "start:prod"]
+CMD ["node", "dist/main.js"]
 
