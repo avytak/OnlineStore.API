@@ -8,11 +8,9 @@
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "nodemon",
-    "start:local": "cross-env NODE_ENV=local nodemon",
-    "start:dev": "nest start --watch",
-    "start:render": "cross-env NODE_ENV=production node dist/src/main",
-    "start:prod": "node dist/main",
+    "start": "node dist/main.js",
+    "start:dev": "nodemon",
+    "start:prod": "node dist/src/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -27,9 +25,9 @@
     "dbl:migrate": "cross-env NODE_ENV=local npx drizzle-kit migrate",
     "db:push": "npx drizzle-kit push",
     "db:studio": "npx drizzle-kit studio",
-    "docker:build": "docker-compose -f docker/docker-compose.yml up -d --build",
-    "docker:down": "docker-compose -f docker/docker-compose.yml down -v",
-    "docker:run": "docker-compose -f docker/docker-compose.yml up"
+    "docker:build":"docker-compose -f docker/docker-compose.yml up --build",
+    "docker:delete":"docker-compose -f docker/docker-compose.yml down",
+    "docker:run":"docker-compose -f docker/docker-compose.yml up"
   },
   "dependencies": {
     "@neondatabase/serverless": "^0.10.4",

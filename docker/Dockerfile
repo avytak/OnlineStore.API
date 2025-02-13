@@ -4,9 +4,10 @@ FROM node:20-alpine AS builder
 WORKDIR /usr/src/app
 
 RUN apk add --no-cache python3 make g++
+RUN npm install -g @nestjs/cli
 
 COPY ../package*.json ./
-RUN npm i
+RUN npm ci
 COPY ../ ./
 COPY .env .env
 RUN npm run build
@@ -24,5 +25,5 @@ COPY .env .env
 
 EXPOSE 3000
 
-CMD ["node", "dist/main.js"]
+CMD ["npm", "run", "start:prod"]
 
