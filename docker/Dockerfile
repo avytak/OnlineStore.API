@@ -6,10 +6,12 @@ WORKDIR /usr/src/app
 RUN apk add --no-cache python3 make g++
 
 COPY ../package*.json ./
-RUN npm ci
+RUN npm i
 COPY ../ ./
 COPY .env .env
 RUN npm run build
+# Запускаємо в режимі розробки
+CMD ["npm", "run", "start:dev"]
 # Production stage
 FROM node:20-alpine AS runner
 
@@ -22,7 +24,7 @@ COPY --from=builder /usr/src/app/dist ./dist
 COPY --from=builder /usr/src/app/package.json ./package.json
 COPY .env .env
 
-EXPOSE 3000
+EXPOSE 3300
 
-CMD ["npm", "run", "start:prod"]
+CMD ["node", "dist/main.js"]
 

@@ -8,15 +8,19 @@ services:
       - '3300:3000'
     volumes:
       - ../:/usr/src/app
+      - /usr/src/app/node_modules
     env_file:
       - .env
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    command: npm run start:dev
     depends_on:
       - postgres-db
 
   postgres-db:
     image: postgres:17.2-alpine
     container_name: store-db
-    restart: always
+    restart: unless-stopped
     ports:
       - '5432:5432'
     volumes:
