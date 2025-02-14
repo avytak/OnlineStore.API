@@ -22,5 +22,5 @@ COPY --from=builder /usr/src/app/package.json ./package.json
 
 EXPOSE 3000
 
-CMD ["npm", "run", "start:prod"]
+CMD ["npm", "run", "start:local"]
 

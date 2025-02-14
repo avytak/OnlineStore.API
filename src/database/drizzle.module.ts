@@ -19,18 +19,14 @@ export const DRIZZLE = Symbol('drizzle-connection');
         const connectionString = configService.get<string>('DATABASE_URL');
         const poolOptions: {
           connectionString: string;
-          ssl?: { rejectUnauthorized: boolean };
+          ssl?: boolean;
         } = {
           connectionString,
         };
         if (environment === 'production') {
-          poolOptions.ssl = {
-            rejectUnauthorized: true,
-          };
+          poolOptions.ssl = true;
         } else {
-          poolOptions.ssl = {
-            rejectUnauthorized: false,
-          };
+          poolOptions.ssl = false;
         }
         const pool = new Pool(poolOptions);
 
