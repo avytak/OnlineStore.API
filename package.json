@@ -7,8 +7,11 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",
+    "build:local": "cross-env NODE_ENV=local nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "nodemon",
+    "start": "cross-env NODE_ENV=development nodemon",
+    "start:neon": "cross-env NODE_ENV=production nodemon",
+    "start:local": "cross-env NODE_ENV=local node dist/src/main",
     "start:prod": "node dist/src/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
@@ -20,7 +23,7 @@
     "type-check": "tsc --project tsconfig.json --pretty --noEmit && echo ",
     "prepare": "husky",
     "db:generate": "npx drizzle-kit generate",
-    "db:migrate": "npx drizzle-kit migrate",
+    "db:migrate": "cross-env NODE_ENV=local npx drizzle-kit migrate",
     "db:push": "npx drizzle-kit push",
     "db:studio": "npx drizzle-kit studio"
   },
