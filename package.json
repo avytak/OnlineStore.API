@@ -25,7 +25,7 @@
     "db:push": "npx drizzle-kit push",
     "db:studio": "npx drizzle-kit studio",
     "docker:build":"docker-compose -f docker/docker-compose.yml up -d --build",
-    "docker:delete":"docker-compose -f docker/docker-compose.yml down -v",
+    "docker:down":"docker-compose -f docker/docker-compose.yml down -v",
     "docker:run":"docker-compose -f docker/docker-compose.yml up"
   },
   "dependencies": {
