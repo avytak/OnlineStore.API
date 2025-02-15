@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "strict": true,
     "module": "commonjs",
     "declaration": true,
     "removeComments": true,
@@ -20,5 +21,10 @@
     "paths": {
       "@app/*":["./src/*"]
     }
-  }
+  },
+  "include": [
+    "src/**/*.ts",
+    "test/**/*.ts",
+    "drizzle.config.ts"
+  ]
 }
