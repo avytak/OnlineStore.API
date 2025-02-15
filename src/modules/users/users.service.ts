@@ -2,11 +2,12 @@ import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 
 import { DrizzleDB } from '@app/database/drizzle';
 import { DRIZZLE } from '@app/database/drizzle.module';
+import { CreateUserDto } from '@app/modules/users/dto/user-create.dto';
 import { createToken } from '@app/modules/users/helpers/createToken';
 import { UsersRepository } from '@app/modules/users/users.repository';
-import { InsertUser, SelectUser, users } from '@app/modules/users/users.schema';
+import { SelectUser, users } from '@app/modules/users/users.schema';
 import 'dotenv/config';
-import { eq, or } from 'drizzle-orm';
+import { eq } from 'drizzle-orm';
 
 @Injectable()
 export class UsersService {
@@ -30,13 +31,11 @@ export class UsersService {
     return token;
   }
 
-  async signup(body: InsertUser): Promise<InsertUser> {
+  async signup(body: CreateUserDto): Promise<CreateUserDto> {
     const existingUser: SelectUser[] = await this.db
       .select()
       .from(users)
-      .where(
-        or(eq(users.email, body.email), eq(users.firstName, body.firstName))
-      );
+      .where(eq(users.email, body.email));
     if (existingUser[0]) {
       throw new HttpException(
         { message: 'Such a user already exists.' },
