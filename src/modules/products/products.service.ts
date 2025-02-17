@@ -5,23 +5,22 @@ import { DRIZZLE } from '@app/database/drizzle.module';
 
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { ProductRepository } from './product.repository';
+import { ProductsRepository } from './products.repository';
 
 @Injectable()
-export class ProductService {
+export class ProductsService {
   constructor(
     @Inject(DRIZZLE) private db: DrizzleDB,
-    private readonly productRepository: ProductRepository
+    private readonly productsRepository: ProductsRepository
   ) {}
-
   async create(createProductDto: CreateProductDto) {
-    await this.productRepository.create(createProductDto);
+    await this.productsRepository.create(createProductDto);
 
-    return 'This action adds a new order';
+    return 'This action adds a new product';
   }
 
   async findAll() {
-    return this.productRepository.findAll();
+    return await this.productsRepository.findAll();
   }
 
   findOne(id: number) {
@@ -29,7 +28,8 @@ export class ProductService {
   }
 
   async update(id: number, updateProductDto: UpdateProductDto) {
-    await this.productRepository.update(id, updateProductDto);
+    await this.productsRepository.update(id, updateProductDto);
+
     return `This action updates a #${id} product`;
   }
 

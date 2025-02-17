@@ -9,6 +9,7 @@ export class CreateProductDto {
   name: string;
   description?: string;
   price: string;
-  category: string;
+  discountPrice?: string;
+  // category?: string;
   imageUrl?: string;
 }
