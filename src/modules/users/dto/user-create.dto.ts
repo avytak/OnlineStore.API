@@ -20,7 +20,7 @@ export class UpdateUserDto implements SelectUser {
   @ApiProperty({ required: false })
   lastName: string;
   @ApiProperty({ required: false, example: 'user, admin' })
-  role: Role.ADMIN | Role.USER;
+  role: Role;
   @ApiProperty({ required: false })
   email: string;
   @ApiProperty({ required: false })

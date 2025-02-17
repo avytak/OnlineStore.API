@@ -7,5 +7,5 @@ export enum Role {
 export interface MyJwtPayloadType extends JwtPayload {
   id: number;
   email: string;
-  role: Role.ADMIN | Role.USER;
+  role: Role;
 }

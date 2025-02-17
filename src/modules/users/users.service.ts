@@ -52,11 +52,10 @@ export class UsersService {
     const existingUser = await this.usersRepository.findByEmail(email);
 
     if (existingUser) {
-      await this.db.delete(users).where(eq(users.email, email));
-      // throw new HttpException(
-      //   { message: 'Such a user already exists.' },
-      //   HttpStatus.UNPROCESSABLE_ENTITY,
-      // );
+      throw new HttpException(
+        { message: 'Such a user already exists.' },
+        HttpStatus.UNPROCESSABLE_ENTITY
+      );
     }
     const user = await this.usersRepository.create(body);
     const emailSended = {
