@@ -16,7 +16,8 @@ services:
       - NODE_ENV=development
     command: npm run start
     depends_on:
-      - postgres-db
+      postgres-db:
+        condition: service_healthy
 
   postgres-db:
     image: postgres:17.2-alpine

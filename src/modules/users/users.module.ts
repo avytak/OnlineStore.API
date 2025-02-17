@@ -7,6 +7,7 @@ import {
 
 import { DrizzleModule } from '@app/database/drizzle.module';
 import { HashPassword } from '@app/modules/users/middlewares';
+import { IsThereTokenMiddleware } from '@app/modules/users/middlewares/isThereToken.middleware';
 import { UsersRepository } from '@app/modules/users/users.repository';
 
 import { UsersController } from './users.controller';
@@ -23,5 +24,8 @@ export class UsersModule implements NestModule {
     consumer
       .apply(HashPassword)
       .forRoutes({ path: 'users', method: RequestMethod.POST });
+    consumer
+      .apply(IsThereTokenMiddleware)
+      .forRoutes({ path: 'users/*', method: RequestMethod.GET });
   }
 }

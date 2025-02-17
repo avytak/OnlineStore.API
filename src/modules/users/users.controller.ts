@@ -4,16 +4,22 @@ import {
   Get,
   Patch,
   Post,
+  Query,
   Req,
+  Res,
   UseGuards,
 } from '@nestjs/common';
-import { ApiConsumes, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiConsumes, ApiTags } from '@nestjs/swagger';
 
 import { IsAuthGuard } from '@app/guards/is-auth.guard';
-import { CreateUserDto } from '@app/modules/users/dto/user-create.dto';
-import { SelectUser } from '@app/modules/users/users.schema';
+import {
+  CreateUserDto,
+  UpdateUserDto,
+} from '@app/modules/users/dto/user-create.dto';
 import { UsersService } from '@app/modules/users/users.service';
 import { ExpressRequestInterface } from '@app/types/expressRequest.interface';
+import { IsThereTokenResponse } from '@app/types/isThereToken.interface';
+import { Response } from 'express';
 
 @ApiTags('Users')
 @Controller('users')
@@ -25,11 +31,25 @@ export class UsersController {
     return req.user;
   }
 
+  @Get('verify')
+  async confirmAuth(
+    @Query('verificationCode') verificationCode: string,
+    @Res() res: Response
+  ) {
+    await this.usersService.confirmAuth(verificationCode);
+    res.redirect(301, '/users/login');
+  }
+
+  @Get('send_token')
+  sendToken(@Body('email') email: string) {
+    return this.usersService.sendToken(email);
+  }
+  @Get('get_token')
+  updatePassword(@Req() req: IsThereTokenResponse) {
+    return req.token;
+  }
+
   @Post()
-  @ApiResponse({
-    status: 400,
-    description: 'Bad request. Invalid input data.',
-  })
   @ApiConsumes('application/x-www-form-urlencoded')
   signup(@Body() body: CreateUserDto): Promise<CreateUserDto> {
     return this.usersService.signup(body);
@@ -37,18 +57,18 @@ export class UsersController {
 
   @Patch()
   @ApiConsumes('application/x-www-form-urlencoded')
-  @ApiResponse({
-    status: 401,
-    description: 'Unauthorized. User needs to be authenticated.',
-  })
   @UseGuards(IsAuthGuard)
-  updata(@Req() req: ExpressRequestInterface, @Body() body: SelectUser) {
-    return this.usersService.update(req.user.id, body);
+  updata(@Req() req: ExpressRequestInterface, @Body() body: UpdateUserDto) {
+    return this.usersService.update(req, body);
   }
 
   @Post('login')
   @ApiConsumes('application/x-www-form-urlencoded')
-  login(@Body() body: SelectUser): Promise<string> {
-    return this.usersService.login(body);
+  async login(
+    @Body() body: CreateUserDto,
+    @Res() res: Response
+  ): Promise<void> {
+    await this.usersService.login(body);
+    res.redirect(301, '/');
   }
 }

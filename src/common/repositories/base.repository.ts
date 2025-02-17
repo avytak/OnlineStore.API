@@ -27,6 +27,13 @@ export class BaseRepository<T extends PgTable> {
       .where(eq(this.table['id'], id))
       .then((res) => res[0] as InferSelectModel<T> | undefined);
   }
+  async findByEmail(email: string): Promise<InferSelectModel<T> | undefined> {
+    return this.db
+      .select()
+      .from(this.table)
+      .where(eq(this.table['email'], email))
+      .then((res) => res[0] as InferSelectModel<T> | undefined);
+  }
   async create(
     data: Omit<InferInsertModel<T>, 'id'>
   ): Promise<InferSelectModel<T>> {

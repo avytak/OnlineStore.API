@@ -1,7 +1,7 @@
 import {
+  integer,
   numeric,
   pgTable,
-  serial,
   text,
   timestamp,
   varchar,
@@ -9,7 +9,7 @@ import {
 
 // Визначення таблиці "product"
 export const product = pgTable('product', {
-  id: serial('id').primaryKey().unique(), // Унікальний ідентифікатор продукту
+  id: integer('id').primaryKey().generatedAlwaysAsIdentity(),
   name: varchar('name', { length: 255 }).notNull(), // Назва продукту
   description: text('description'), // Опис продукту
   price: numeric('price', { precision: 10, scale: 2 }).notNull(), // Ціна продукту
