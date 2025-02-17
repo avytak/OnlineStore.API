@@ -29,8 +29,8 @@ export class UsersService {
   async login(body: CreateUserDto): Promise<string> {
     const { email } = body;
     const user = await this.usersRepository.findByEmail(email);
-
     if (!user) {
+      console.log(!!user);
       throw new HttpException(
         'Invalid email or password',
         HttpStatus.BAD_REQUEST
@@ -61,11 +61,10 @@ export class UsersService {
     const user = await this.usersRepository.create(body);
     const emailSended = {
       receiver: email,
-      markup: `<a target="_blank" href="${BASE_URL}/users/verify?verificationCode=${user.password}">Confirm authorization</a>`,
+      markup: `<a target="_blank" href="${BASE_URL}/users/verify?verificationCode=${user.password}&id=${user.id}">Confirm authorization</a>`,
       theme: 'Verify email',
     };
     await authVerify(emailSended);
-    delete user.password;
     return user;
   }
 
@@ -133,7 +132,7 @@ export class UsersService {
     );
     const notify = {
       receiver: user.email,
-      markup: `<a target="_blank" href="${this.configService.get<string>('BASE_URL')}/users/update_password?token=${token}">Confirm authorization</a>`,
+      markup: `<a target="_blank" href="${this.configService.get<string>('BASE_URL')}/users?token=${token}">Confirm authorization</a>`,
       theme: 'Verify email',
     };
     await authVerify(notify);

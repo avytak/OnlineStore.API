@@ -18,6 +18,7 @@ export async function createToken(
     user.password
   );
   if (!isPassword) {
+    console.log(body.password, user.password);
     throw new HttpException(
       'Invalid email or password',
       HttpStatus.BAD_REQUEST
