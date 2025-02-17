@@ -2,6 +2,9 @@ import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 import { AppModule } from '@app/app.module';
+import { config } from 'dotenv';
+
+config({ path: `.env.${process.env.NODE_ENV || 'production'}` });
 
 if (!process.env.IS_TS_MODE) {
   // eslint-disable-next-line @typescript-eslint/no-require-imports
