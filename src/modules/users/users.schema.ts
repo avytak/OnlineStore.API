@@ -22,6 +22,8 @@ export const users = pgTable('users', {
   role: roles('role').default(Role.USER),
   email: varchar('email', { length: 20 }),
   password: varchar('password', { length: 70 }),
+  birthDay: varchar('birth_day', { length: 20 }),
+  phone: varchar('phone', { length: 20 }),
   isVerify: boolean(),
 });
 <<<<<<< HEAD

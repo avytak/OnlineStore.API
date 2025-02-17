@@ -27,4 +27,8 @@ export class UpdateUserDto implements SelectUser {
   password: string;
   @ApiProperty({ required: false })
   isVerify: boolean;
+  @ApiProperty({ required: false })
+  birthDay: string;
+  @ApiProperty({ required: false })
+  phone: string;
 }
