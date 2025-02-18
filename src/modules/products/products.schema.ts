@@ -20,7 +20,7 @@ export const products = pgTable('products', {
   // categoryId: integer('category_id')
   //   .notNull()
   //   .references(() => categories.id, { onDelete: 'cascade' }), // Категорія продукту
-  imageUrl: text('image_url'), // URL зображення продукту
+  image: text('image_url'), // URL зображення продукту
   createdAt: timestamp('created_at').defaultNow(), // Дата створення запису
   updatedAt: timestamp('updated_at')
     .defaultNow()

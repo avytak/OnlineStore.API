@@ -6,7 +6,12 @@ import {
   Param,
   Patch,
   Post,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+
+import { CloudinaryService } from '@app/cloudinary/cloudinary.service';
 
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -14,10 +19,21 @@ import { ProductsService } from './products.service';
 
 @Controller('products')
 export class ProductsController {
-  constructor(private readonly productsService: ProductsService) {}
+  constructor(
+    private readonly productsService: ProductsService,
+    private readonly cloudinaryService: CloudinaryService
+  ) {}
 
   @Post()
-  create(@Body() createProductDto: CreateProductDto) {
+  @UseInterceptors(FileInterceptor('image')) // Приймаємо файл під ключем "image"
+  async create(
+    @Body() createProductDto: CreateProductDto,
+    @UploadedFile() file: Express.Multer.File
+  ) {
+    if (file) {
+      const uploadResult = await this.cloudinaryService.uploadImage(file);
+      createProductDto.image = uploadResult.url; // Додаємо URL зображення у DTO
+    }
     return this.productsService.create(createProductDto);
   }
 
