@@ -1,24 +1,35 @@
+import { users } from '@app/database/schema';
+import { Status } from '@app/types/orders';
+import { relations } from 'drizzle-orm';
 import {
-  decimal,
   integer,
+  pgEnum,
   pgTable,
-  text,
   timestamp,
   varchar,
 } from 'drizzle-orm/pg-core';
 
+export const statuses = pgEnum('statuses', [
+  Status.PROCESSING,
+  Status.SENT,
+  Status.DELIVERED,
+  Status.CANCELLED,
+]);
+
 export const orders = pgTable('orders', {
   id: integer('id').primaryKey().generatedAlwaysAsIdentity(),
-  totalPrice: decimal('total_price', { precision: 5, scale: 0 }).notNull(),
-  status: varchar('status', { length: 20 }).notNull(),
-  firstName: varchar('first_name', { length: 20 }).notNull(),
-  lastName: varchar('last_name', { length: 20 }).notNull(),
-  phone: varchar('phone', { length: 20 }).notNull(),
-  shippingAddress: text('shipping-address').notNull(),
+  status: statuses('status').default(Status.PROCESSING),
   paymentType: varchar('payment_type', { length: 255 }).notNull(),
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow(),
+  userId: integer('userId')
+    .notNull()
+    .references(() => users.id),
 });
+
+export const ordersRelations = relations(orders, ({ one }) => ({
+  user: one(users, { fields: [orders.userId], references: [users.id] }),
+}));
 
 export type SelectOrder = typeof orders.$inferSelect;
 

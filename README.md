@@ -32,14 +32,21 @@ or use `Local machine` to run the application on port `3000`
 - `make app` - up application
 - `make app-down` - down application
 
-## docker build images and run
-
-npm run docker:build
+## docker build images and run container
+ npm run docker:build 
 
 ## docker run containers
 
 npm run docker:run
 
 ## docker delete containers
-
 npm run docker:down
+
+## push db to docker container
+npm run docker:push
+
+## push db to origin
+npm run db:push
+
+## generate themes
+npm run db:generate
