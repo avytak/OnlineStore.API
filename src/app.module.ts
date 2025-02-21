@@ -6,20 +6,23 @@ import {
 } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 
-
 import { DrizzleModule } from '@app/database/drizzle.module';
 import { AuthMiddleware } from '@app/middleware/auth/auth.middleware';
 import { OrdersModule } from '@app/modules/orders/orders.module';
 import { UsersModule } from '@app/modules/users/users.module';
-import { ProductModule } from './modules/product/product.module';
+
+import { ProductsModule } from './modules/products/products.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
+    ConfigModule.forRoot({
+      envFilePath: [`.env.${process.env.NODE_ENV}`, '.env'],
+      isGlobal: true,
+    }),
     DrizzleModule,
     OrdersModule,
     UsersModule,
-    ProductModule,
+    ProductsModule,
   ],
 })
 export class AppModule implements NestModule {

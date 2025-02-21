@@ -2,8 +2,8 @@
 
 [https://online-store-api-fazp.onrender.com/docs](https://online-store-api-fazp.onrender.com/docs)
 
-Since this server operates on a free plan, please be patient with
-the waiting time during the initial run or after periods of inactivity
+Since this server operates on a free plan, please be patient with the waiting
+time during the initial run or after periods of inactivity
 
 or use `Local machine` to run the application on port `3000`
 
@@ -32,6 +32,14 @@ or use `Local machine` to run the application on port `3000`
 - `make app` - up application
 - `make app-down` - down application
 
-## Start application without Makefile
+## docker build images and run
 
-docker-compose -f docker/docker-compose.yml up --build
+npm run docker:build
+
+## docker run containers
+
+npm run docker:run
+
+## docker delete containers
+
+npm run docker:down
