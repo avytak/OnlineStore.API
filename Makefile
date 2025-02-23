@@ -1,7 +1,7 @@
 DC = docker-compose
 APP_FILE = docker/docker-compose.yml
 D = docker
-IMG_NAME = online-store-api
+IMG_NAME = dressify
 
 .PHONY: app
 app:
@@ -12,6 +12,6 @@ app:
 app-down:
 	${DC} -f ${APP_FILE}  down
 
-.PHONY: docker
-docker:
+.PHONY: render-neon
+render-neon:
 	${D} build -t ${IMG_NAME} .

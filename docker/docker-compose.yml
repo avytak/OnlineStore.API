@@ -13,10 +13,11 @@ services:
       - .env
     environment:
       - CHOKIDAR_USEPOLLING=true
-      - NODE_ENV=development
-    command: npm run start
+      - NODE_ENV=local
+    command: npm run start:local
     depends_on:
-      - postgres-db
+      postgres-db:
+        condition: service_healthy
 
   postgres-db:
     image: postgres:17.2-alpine
