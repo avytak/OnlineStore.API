@@ -12,8 +12,8 @@ if (!process.env.IS_TS_MODE) {
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
   const config = new DocumentBuilder()
-    .setTitle('Online Store API')
-    .setDescription('The online store API description')
+    .setTitle('Dressify API')
+    .setDescription('Dressify API description')
     .setVersion('1.0')
     .addTag('Store')
     .build();
