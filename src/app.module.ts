@@ -11,7 +11,7 @@ import { AuthMiddleware } from '@app/middleware/auth/auth.middleware';
 import { OrdersModule } from '@app/modules/orders/orders.module';
 import { UsersModule } from '@app/modules/users/users.module';
 
-import { ProductModule } from './modules/product/product.module';
+import { ProductsModule } from './modules/products/products.module';
 import { UserAddressModule } from './modules/user-address/user-address.module';
 
 @Module({
@@ -22,8 +22,8 @@ import { UserAddressModule } from './modules/user-address/user-address.module';
     DrizzleModule,
     OrdersModule,
     UsersModule,
-    ProductModule,
     UserAddressModule,
+    ProductsModule,
   ],
 })
 export class AppModule implements NestModule {
