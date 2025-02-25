@@ -1,5 +1,5 @@
 {
-  "id": "9a48a1a3-4330-43c6-b5db-a0052ad76e51",
+  "id": "5b425f3b-3aa5-427a-86e8-42a6ae2dbcfd",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -78,12 +78,8 @@
           "name": "orders_userId_users_id_fk",
           "tableFrom": "orders",
           "tableTo": "users",
-          "columnsFrom": [
-            "userId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["userId"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -156,17 +152,15 @@
         "product_id_unique": {
           "name": "product_id_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "id"
-          ]
+          "columns": ["id"]
         }
       },
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.userAddress": {
-      "name": "userAddress",
+    "public.products": {
+      "name": "products",
       "schema": "",
       "columns": {
         "id": {
@@ -176,7 +170,7 @@
           "notNull": true,
           "identity": {
             "type": "always",
-            "name": "userAddress_id_seq",
+            "name": "products_id_seq",
             "schema": "public",
             "increment": "1",
             "startWith": "1",
@@ -186,61 +180,61 @@
             "cycle": false
           }
         },
-        "user_id": {
-          "name": "user_id",
-          "type": "integer",
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true
         },
-        "street": {
-          "name": "street",
-          "type": "varchar(100)",
+        "description": {
+          "name": "description",
+          "type": "text",
           "primaryKey": false,
           "notNull": false
         },
-        "city": {
-          "name": "city",
-          "type": "varchar(100)",
+        "price": {
+          "name": "price",
+          "type": "numeric(10, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "discount_price": {
+          "name": "discount_price",
+          "type": "numeric(10, 2)",
           "primaryKey": false,
           "notNull": false
         },
-        "state": {
-          "name": "state",
-          "type": "varchar(100)",
+        "image_url": {
+          "name": "image_url",
+          "type": "text",
           "primaryKey": false,
           "notNull": false
         },
-        "postal_code": {
-          "name": "postal_code",
-          "type": "varchar(20)",
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
           "primaryKey": false,
-          "notNull": false
+          "notNull": false,
+          "default": "now()"
         },
-        "country": {
-          "name": "country",
-          "type": "varchar(100)",
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
           "primaryKey": false,
-          "notNull": false
+          "notNull": false,
+          "default": "now()"
         }
       },
       "indexes": {},
-      "foreignKeys": {
-        "userAddress_user_id_users_id_fk": {
-          "name": "userAddress_user_id_users_id_fk",
-          "tableFrom": "userAddress",
-          "tableTo": "users",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "products_id_unique": {
+          "name": "products_id_unique",
+          "nullsNotDistinct": false,
+          "columns": ["id"]
         }
       },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": false
@@ -311,12 +305,7 @@
     "public.statuses": {
       "name": "statuses",
       "schema": "public",
-      "values": [
-        "processing",
-        "sent",
-        "delivered",
-        "cancelled"
-      ]
+      "values": ["processing", "sent", "delivered", "cancelled"]
     }
   },
   "schemas": {},

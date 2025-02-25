@@ -17,7 +17,6 @@ import { UserAddressModule } from './modules/user-address/user-address.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: [`.env.${process.env.NODE_ENV}`, '.env'],
       isGlobal: true,
     }),
     DrizzleModule,

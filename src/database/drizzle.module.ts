@@ -15,13 +15,20 @@ export const DRIZZLE = Symbol('drizzle-connection');
       provide: DRIZZLE,
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => {
+        const environment = configService.get<string>('NODE_ENV');
         const connectionString = configService.get<string>('DATABASE_URL');
-        const pool = new Pool({
+        const poolOptions: {
+          connectionString: string;
+          ssl?: boolean;
+        } = {
           connectionString,
-          ssl: connectionString.includes('neon.tech')
-            ? { rejectUnauthorized: false }
-            : false,
-        });
+        };
+        if (environment === 'production') {
+          poolOptions.ssl = true;
+        } else {
+          poolOptions.ssl = false;
+        }
+        const pool = new Pool(poolOptions);
 
         return drizzle(pool, { schema }) as DrizzleDB;
       },
