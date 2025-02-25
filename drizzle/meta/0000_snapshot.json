@@ -39,9 +39,7 @@
         "categories_id_unique": {
           "name": "categories_id_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "id"
-          ]
+          "columns": ["id"]
         }
       },
       "policies": {},
@@ -110,12 +108,8 @@
           "name": "orders_userId_users_id_fk",
           "tableFrom": "orders",
           "tableTo": "users",
-          "columnsFrom": [
-            "userId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["userId"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -198,12 +192,8 @@
           "name": "products_category_id_categories_id_fk",
           "tableFrom": "products",
           "tableTo": "categories",
-          "columnsFrom": [
-            "category_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["category_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -213,9 +203,7 @@
         "products_id_unique": {
           "name": "products_id_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "id"
-          ]
+          "columns": ["id"]
         }
       },
       "policies": {},
@@ -286,12 +274,8 @@
           "name": "userAddress_user_id_users_id_fk",
           "tableFrom": "userAddress",
           "tableTo": "users",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -368,12 +352,7 @@
     "public.statuses": {
       "name": "statuses",
       "schema": "public",
-      "values": [
-        "processing",
-        "sent",
-        "delivered",
-        "cancelled"
-      ]
+      "values": ["processing", "sent", "delivered", "cancelled"]
     }
   },
   "schemas": {},
