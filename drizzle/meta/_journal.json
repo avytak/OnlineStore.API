@@ -5,15 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1739260680034,
-      "tag": "0000_warm_doctor_strange",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1739723355208,
-      "tag": "0001_absurd_champions",
+      "when": 1740320793202,
+      "tag": "0000_naive_bloodstorm",
       "breakpoints": true
     }
   ]
