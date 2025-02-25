@@ -10,6 +10,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { ApiBody, ApiConsumes, ApiOperation } from '@nestjs/swagger';
 
 import { CloudinaryService } from '@app/cloudinary/cloudinary.service';
 
@@ -25,7 +26,30 @@ export class ProductsController {
   ) {}
 
   @Post()
-  @UseInterceptors(FileInterceptor('image')) // Приймаємо файл під ключем "image"
+  @UseInterceptors(FileInterceptor('image'))
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    description: 'Product with image',
+    schema: {
+      type: 'object',
+      required: ['name', 'price', 'categoryId'],
+      properties: {
+        name: { type: 'string', example: 'Product name' },
+        description: {
+          type: 'string',
+          example: 'This is a very good description of product',
+        },
+        price: { type: 'string', example: '100.00' },
+        discountPrice: { type: 'string', example: '50.00' },
+        categoryId: { type: 'number', example: 1 },
+        image: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
+  @ApiOperation({ summary: 'Create a new product with an image' })
   async create(
     @Body() createProductDto: CreateProductDto,
     @UploadedFile() file: Express.Multer.File
