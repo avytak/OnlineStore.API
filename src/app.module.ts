@@ -11,6 +11,7 @@ import { AuthMiddleware } from '@app/middleware/auth/auth.middleware';
 import { OrdersModule } from '@app/modules/orders/orders.module';
 import { UsersModule } from '@app/modules/users/users.module';
 
+import { CategoriesModule } from './modules/categories/categories.module';
 import { ProductsModule } from './modules/products/products.module';
 import { UserAddressModule } from './modules/user-address/user-address.module';
 
@@ -24,6 +25,7 @@ import { UserAddressModule } from './modules/user-address/user-address.module';
     UsersModule,
     UserAddressModule,
     ProductsModule,
+    CategoriesModule,
   ],
 })
 export class AppModule implements NestModule {

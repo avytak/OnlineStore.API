@@ -56,7 +56,7 @@ export class ProductsController {
   ) {
     if (file) {
       const uploadResult = await this.cloudinaryService.uploadImage(file);
-      createProductDto.image = uploadResult.url; // Додаємо URL зображення у DTO
+      createProductDto.image = uploadResult.url;
     }
     return this.productsService.create(createProductDto);
   }

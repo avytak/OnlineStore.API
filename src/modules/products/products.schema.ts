@@ -1,3 +1,4 @@
+import { relations } from 'drizzle-orm';
 import {
   decimal,
   integer,
@@ -26,6 +27,13 @@ export const products = pgTable('products', {
     .defaultNow()
     .$onUpdate(() => new Date()),
 });
+
+export const productsRelations = relations(products, ({ one }) => ({
+  product: one(categories, {
+    fields: [products.categoryId],
+    references: [categories.id],
+  }),
+}));
 
 export type SelectProduct = typeof products.$inferSelect;
 
