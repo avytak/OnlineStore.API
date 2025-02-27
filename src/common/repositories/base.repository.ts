@@ -3,10 +3,20 @@ import { Inject, Injectable } from '@nestjs/common';
 
 import { DrizzleDB } from '@app/database/drizzle';
 import { DRIZZLE } from '@app/database/drizzle.module';
-import { InferInsertModel, eq } from 'drizzle-orm';
+import { InferInsertModel, SQL, eq } from 'drizzle-orm';
 import { InferSelectModel } from 'drizzle-orm';
 import { PgTable, TableConfig } from 'drizzle-orm/pg-core';
 
+interface FindOneOptions<T extends PgTable> {
+  where?: SQL<unknown>;
+  with?: unknown;
+  // Можна розширити options іншими параметрами findOne, якщо потрібно (with, etc.)
+}
+
+// Визначаємо інтерфейс, який розширює PgTable та явно включає name: string
+interface TableWithName<TConfig extends TableConfig> extends PgTable<TConfig> {
+  name: string;
+}
 @Injectable()
 export class BaseRepository<T extends PgTable> {
   constructor(
@@ -26,6 +36,31 @@ export class BaseRepository<T extends PgTable> {
       .from(this.table)
       .where(eq(this.table['id'], id))
       .then((res) => res[0] as InferSelectModel<T> | undefined);
+  }
+
+  async findOneById(
+    id: number,
+    options: FindOneOptions<T>
+  ): Promise<InferSelectModel<T> | Error | undefined> {
+    const tableName = (this.table as TableWithName<TableConfig>).name;
+    try {
+      if (tableName in this.db.query) {
+        return (await (
+          this.db.query[tableName] as {
+            findOne(
+              options: FindOneOptions<T>
+            ): Promise<InferSelectModel<T> | Error | undefined>;
+          }
+        ).findOne({
+          where: eq(this.table['id'], id),
+          with: options.with,
+        })) as Promise<InferSelectModel<T> | Error | undefined>;
+      } else {
+        throw new Error(`Invalid table name: ${tableName}`);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   }
   async create(
     data: Omit<InferInsertModel<T>, 'id'>

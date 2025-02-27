@@ -19,8 +19,8 @@ export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 
   @Get(':id')
-  findOne(@Param('id') id: string): Promise<SelectOrderDto> {
-    return this.ordersService.findOne(+id);
+  findOneById(@Param('id') id: string): Promise<SelectOrderDto | Error | null> {
+    return this.ordersService.findOneById(+id);
   }
 
   @Get()

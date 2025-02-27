@@ -5,11 +5,11 @@ import { BaseRepository } from '@app/common/repositories/base.repository';
 import { DrizzleDB } from '@app/database/drizzle';
 import { DRIZZLE } from '@app/database/drizzle.module';
 
-import { product } from './product.schema';
+import { categories } from './categories.schema';
 
 @Injectable()
-export class ProductRepository extends BaseRepository<typeof product> {
+export class CategoriesRepository extends BaseRepository<typeof categories> {
   constructor(@Inject(DRIZZLE) db: DrizzleDB) {
-    super(db, product);
+    super(db, categories);
   }
 }

@@ -24,6 +24,7 @@
     "db:generate": "npx drizzle-kit generate",
     "db:migrate": "cross-env NODE_ENV=production npx drizzle-kit migrate",
     "dblocal:migrate": "cross-env NODE_ENV=development npx drizzle-kit migrate",
+    "dblocal:revert": "cross-env NODE_ENV=development npx drizzle-kit revert",
     "db:studio": "cross-env NODE_ENV=production npx drizzle-kit studio",
     "docker:build": "docker build --no-cache --build-arg ENV_FILE=.env.production -t volodymyrquo/online-store-api -f docker/Dockerfile.prod ."
   },
