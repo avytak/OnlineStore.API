@@ -7,8 +7,6 @@ import { compare } from 'bcryptjs';
 import 'dotenv/config';
 import { sign } from 'jsonwebtoken';
 
-const { JWT_SECRET } = process.env;
-
 export async function createToken(
   body: CreateUserDto,
   user: SelectUser
@@ -23,6 +21,12 @@ export async function createToken(
       HttpStatus.BAD_REQUEST
     );
   }
-
+  const JWT_SECRET = process.env.JWT_SECRET;
+  if (!JWT_SECRET) {
+    throw new HttpException(
+      'Internal server error',
+      HttpStatus.INTERNAL_SERVER_ERROR
+    );
+  }
   return sign(payload(user), JWT_SECRET, { expiresIn: '23h' });
 }

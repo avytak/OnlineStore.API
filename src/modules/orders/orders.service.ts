@@ -15,10 +15,18 @@ export class OrdersService {
     return 'This action adds a new order';
   }
 
-  async findOne(id: SelectOrderDto['id']): Promise<SelectOrderDto> {
-    return await this.ordersRepository.findById(id);
-  }
+  async findOneById(
+    id: SelectOrderDto['id']
+  ): Promise<SelectOrderDto | Error | null> {
+    const order = (await this.ordersRepository.findOneById(id, {
+      with: { user: true },
+    })) as SelectOrderDto | Error | null;
+    if (order instanceof Error && order !== null) {
+      throw new Error(order.message);
+    }
 
+    return order ?? null;
+  }
   async findAll() {
     return await this.ordersRepository.findAll();
   }

@@ -28,7 +28,11 @@ export class UsersService {
 
   async login(body: CreateUserDto): Promise<string> {
     const { email } = body;
-    const user = await this.usersRepository.findByEmail(email);
+    const user = await this.usersRepository.findOne({
+      where: eq(users, {
+        email,
+      }),
+    });
     if (!user) {
       console.log(!!user);
       throw new HttpException(
@@ -49,8 +53,11 @@ export class UsersService {
   async signup(body: CreateUserDto): Promise<CreateUserDto> {
     const BASE_URL = this.configService.get<string>('BASE_URL');
     const { email } = body;
-    const existingUser = await this.usersRepository.findByEmail(email);
-
+    const existingUser = await this.usersRepository.findOne({
+      where: eq(users, {
+        email,
+      }),
+    });
     if (existingUser) {
       throw new HttpException(
         { message: 'Such a user already exists.' },
@@ -117,7 +124,11 @@ export class UsersService {
   }
 
   async sendToken(email: string) {
-    const user = await this.usersRepository.findByEmail(email);
+    const user = await this.usersRepository.findOne({
+      where: eq(users, {
+        email,
+      }),
+    });
     if (!user) {
       throw new HttpException(
         'There is no such email',

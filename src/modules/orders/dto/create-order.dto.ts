@@ -2,6 +2,8 @@ import { ApiProperty } from '@nestjs/swagger';
 
 import { InsertOrder, SelectOrder } from '@app/database/schema';
 
+import { Status } from './../../../types/orders';
+
 export class CreateOrderDto implements InsertOrder {
   @ApiProperty({
     description: 'totalPrice',
@@ -14,9 +16,11 @@ export class CreateOrderDto implements InsertOrder {
   phone: string;
   shippingAddress: string;
   paymentType: string;
+  userId: number;
 }
 
 export class SelectOrderDto implements SelectOrder {
+  userId: number;
   @ApiProperty({
     description: 'id',
     example: 2,
@@ -25,7 +29,7 @@ export class SelectOrderDto implements SelectOrder {
   createdAt: Date;
   updatedAt: Date;
   totalPrice: string;
-  status: string;
+  status: Status;
   firstName: string;
   lastName: string;
   phone: string;

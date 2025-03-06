@@ -11,20 +11,21 @@ import { AuthMiddleware } from '@app/middleware/auth/auth.middleware';
 import { OrdersModule } from '@app/modules/orders/orders.module';
 import { UsersModule } from '@app/modules/users/users.module';
 
-import { ProductModule } from './modules/product/product.module';
+import { CategoriesModule } from './modules/categories/categories.module';
+import { ProductsModule } from './modules/products/products.module';
 import { UserAddressModule } from './modules/user-address/user-address.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: [`.env.${process.env.NODE_ENV}`, '.env'],
       isGlobal: true,
     }),
     DrizzleModule,
     OrdersModule,
     UsersModule,
-    ProductModule,
     UserAddressModule,
+    ProductsModule,
+    CategoriesModule,
   ],
 })
 export class AppModule implements NestModule {
