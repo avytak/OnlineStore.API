@@ -8,7 +8,7 @@ import { InferSelectModel } from 'drizzle-orm';
 import { PgTable, TableConfig } from 'drizzle-orm/pg-core';
 
 interface FindOneOptions<T extends PgTable> {
-  where?: SQL<unknown>;
+  where?: SQL;
   with?: unknown;
   // Можна розширити options іншими параметрами findOne, якщо потрібно (with, etc.)
 }
@@ -37,7 +37,17 @@ export class BaseRepository<T extends PgTable> {
       .where(eq(this.table['id'], id))
       .then((res) => res[0] as InferSelectModel<T> | undefined);
   }
+  async findOne(
+    options: FindOneOptions<T>
+  ): Promise<InferSelectModel<T> | undefined> {
+    const query = this.db.select().from(this.table).limit(1); // Обмежуємо результат до одного запису, оскільки шукаємо "findOne"
 
+    if (options.where) {
+      query.where(options.where); // Застосовуємо умову where, якщо вона надана в options
+    }
+
+    return query.then((res) => res[0] as InferSelectModel<T> | undefined);
+  }
   async findOneById(
     id: number,
     options: FindOneOptions<T>

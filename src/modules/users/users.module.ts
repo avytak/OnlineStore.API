@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 
 import { DrizzleModule } from '@app/database/drizzle.module';
-import { HashPassword } from '@app/modules/users/middlewares';
+import { GetToken, HashPassword, Verify } from '@app/modules/users/middlewares';
 import { UsersRepository } from '@app/modules/users/users.repository';
 
 import { UsersController } from './users.controller';
@@ -22,6 +22,15 @@ export class UsersModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(HashPassword)
-      .forRoutes({ path: 'users', method: RequestMethod.POST });
+      .forRoutes({ path: 'users/create', method: RequestMethod.POST });
+    consumer
+      .apply(HashPassword)
+      .forRoutes({ path: 'users/update', method: RequestMethod.PATCH });
+    consumer
+      .apply(Verify)
+      .forRoutes({ path: 'users/verify', method: RequestMethod.GET });
+    consumer
+      .apply(GetToken)
+      .forRoutes({ path: 'users/*', method: RequestMethod.GET });
   }
 }
