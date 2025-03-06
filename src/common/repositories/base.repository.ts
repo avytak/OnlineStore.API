@@ -8,7 +8,7 @@ import { InferSelectModel } from 'drizzle-orm';
 import { PgTable, TableConfig } from 'drizzle-orm/pg-core';
 
 interface FindOneOptions<T extends PgTable> {
-  where?: SQL<T>;
+  where?: SQL;
   with?: unknown;
   // Можна розширити options іншими параметрами findOne, якщо потрібно (with, etc.)
 }

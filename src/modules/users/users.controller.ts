@@ -40,6 +40,7 @@ export class UsersController {
   }
 
   @Get('send_token')
+  @ApiConsumes('application/x-www-form-urlencoded')
   sendToken(@Body('email') email: string) {
     return this.usersService.sendToken(email);
   }

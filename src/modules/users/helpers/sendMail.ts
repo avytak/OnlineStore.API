@@ -1,9 +1,10 @@
 import { TypeMailParams } from '@app/types/TypeMailParams';
 import 'dotenv/config';
-import * as nodemailer from 'nodemailer';
+import nodemailer from 'nodemailer';
+import { SentMessageInfo } from 'nodemailer';
 
 const { UKR_NET_PASSWORD, UKR_NET_EMAIL } = process.env;
-const transporter = nodemailer.createTransport({
+const transporter: nodemailer.Transporter = nodemailer.createTransport({
   host: 'smtp.ukr.net',
   port: 465,
   secure: true,
@@ -12,7 +13,10 @@ const transporter = nodemailer.createTransport({
     pass: UKR_NET_PASSWORD,
   },
 });
-export async function sendMail(data: Omit<TypeMailParams, 'from'>) {
+
+export async function sendMail(
+  data: Omit<TypeMailParams, 'from'>
+): Promise<SentMessageInfo> {
   const { receiver, theme, markup } = data;
   const email = {
     to: receiver,
